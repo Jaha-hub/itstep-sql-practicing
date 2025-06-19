@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Список продуктов</title>
+</head>
+<body>
+    <h1>Список продуктов</h1>
+
+    <a href="http://127.0.0.1:8000/home">
+        <button>Назад на главную</button>
+    </a>
+    <ul>
+        {% for product in products %}
+            <li>
+                <strong>{{ product.name }}</strong><br>
+                Описание: {{ product.description }}<br>
+                Цена: {{ product.price }} dollars.
+            </li>
+            <hr>
+        {% empty %}
+            <li>Нет доступных продуктов.</li>
+        {% endfor %}
+    </ul>
+</body>
+</html>

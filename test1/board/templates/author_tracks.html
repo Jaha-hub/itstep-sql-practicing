@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Треки автора: {{ author.name }}</title>
+</head>
+<body>
+    <h1>Треки автора: {{ author.name }}</h1>
+
+    <a href="http://127.0.0.1:8000/home">
+        <button>Назад на главную</button>
+    </a>
+
+    <ul>
+        {% for track in tracks %}
+            <li>
+                <strong>{{ track.title }}</strong> - Автор: {{ track.author.name }}
+            </li>
+            <hr>
+        {% empty %}
+            <li>У этого автора нет доступных треков.</li>
+        {% endfor %}
+    </ul>
+</body>
+</html>
