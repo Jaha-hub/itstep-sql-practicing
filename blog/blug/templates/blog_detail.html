@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'blog.css' %}">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h1>{{ object.title }}</h1>
+    <p>{{ object.content|linebreaks }}</p>
+    <p>Автор: {{ object.author }} | {{ object.created_at }}</p>
+    
+    {% if user == object.author %}
+      <a href="{% url 'blog_update' object.pk %}">Редактировать</a> |
+      <a href="{% url 'blog_delete' object.pk %}">Удалить</a> |
+    {% endif %}
+    <a href="{% url 'blog_list' %}">Назад к списку</a>    
+</body>
+</html>
