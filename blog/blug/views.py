@@ -1,57 +1,51 @@
 from django.shortcuts import render, redirect
-from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
-from .models import BlogPost
-from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
-from django.urls import reverse_lazy
+from django.contrib.auth import login
 from django.contrib.auth.forms import UserCreationForm
-from django.contrib import messages
+from django.contrib.auth.mixins import LoginRequiredMixin
+from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
+from django.urls import reverse_lazy
+from .models import BlogPost
 
-# Create your views here.
 
-class BlogPostListView(ListView):
+def register(request):
+    """Представление для регистрации новых пользователей."""
+    if request.user.is_authenticated:
+        return redirect('blog_list')
+
+    if request.method == 'POST':
+        form = UserCreationForm(request.POST)
+        if form.is_valid():
+            user = form.save()
+            login(request, user) # Автоматический вход после регистрации
+            return redirect('blog_list')
+    else:
+        form = UserCreationForm()
+    return render(request, 'registration/register.html', {'form': form})
+
+class BlogPostListView(LoginRequiredMixin, ListView):
     model = BlogPost
     template_name = 'blog_list.html'
     context_object_name = 'posts'
-    ordering = ['-created_at']
 
-class BlogPostDetailView(DetailView):
+class BlogPostDetailView(LoginRequiredMixin, DetailView):
     model = BlogPost
-    template_name = 'blog_detail.html'
+    template_name = 'blogpost_detail.html'
 
 class BlogPostCreateView(LoginRequiredMixin, CreateView):
     model = BlogPost
     fields = ['title', 'content']
-    template_name = 'blog_form.html'
-
+    template_name = 'blogpost_form.html'
+    
     def form_valid(self, form):
         form.instance.author = self.request.user
         return super().form_valid(form)
 
-class BlogPostUpdateView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
+class BlogPostUpdateView(LoginRequiredMixin, UpdateView):
     model = BlogPost
     fields = ['title', 'content']
-    template_name = 'blog_form.html'
+    template_name = 'blogpost_form.html'
 
-    def test_func(self):
-        post = self.get_object()
-        return self.request.user == post.author
-
-class BlogPostDeleteView(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
+class BlogPostDeleteView(LoginRequiredMixin, DeleteView):
     model = BlogPost
-    template_name = 'blog_confirm_delete.html'
     success_url = reverse_lazy('blog_list')
-
-    def test_func(self):
-        post = self.get_object()
-        return self.request.user == post.author
-
-def register(request):
-    if request.method == 'POST':
-        form = UserCreationForm(request.POST)
-        if form.is_valid():
-            form.save()
-            messages.success(request, 'Вы успешно зарегистрировались! Теперь можете войти.')
-            return redirect('login')
-    else:
-        form = UserCreationForm()
-    return render(request, 'registration/register.html', {'form': form})
+    template_name = 'blogpost_confirm_delete.html'

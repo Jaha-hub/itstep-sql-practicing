@@ -1,6 +1,7 @@
 from django.urls import path
 from blug.views import (
     BlogPostListView,
+    register,
     BlogPostDetailView,
     BlogPostCreateView,
     BlogPostUpdateView,
@@ -8,7 +9,8 @@ from blug.views import (
 )
 
 urlpatterns = [
-    path('', BlogPostListView.as_view(), name='blog_list'),
+    path('', register, name='register'),
+    path('posts/', BlogPostListView.as_view(), name='blog_list'),
     path('post/<int:pk>/', BlogPostDetailView.as_view(), name='blog_detail'),
     path('post/new/', BlogPostCreateView.as_view(), name='blog_create'),
     path('post/<int:pk>/edit/', BlogPostUpdateView.as_view(), name='blog_update'),

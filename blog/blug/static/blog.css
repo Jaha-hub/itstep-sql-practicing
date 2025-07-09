@@ -1,37 +1,65 @@
-a{
-    color: #2980b9;
-    text-decoration: none;
-}
 body {
     font-family: Arial, sans-serif;
-    margin: 40px;
-    background-color: #f9f9f9;
-    color: #333;
-}
-button {
-    padding: 10px 15px;
-    background-color: #3498db;
-    color: white;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
+    background-color: #f4f4f4;
+    margin: 0;
+    padding: 20px;
 }
 
-.post {
-    background: white;
-    padding: 15px;
-    margin-bottom: 20px;
-    border-radius: 10px;
-    box-shadow: 0 1px 4px rgba(0,0,0,0.1);
-}
-button:hover {
-    background-color: #2980b9;
-}
-form {
-    background: white;
-    padding: 20px;
-    border-radius: 10px;
-    box-shadow: 0 2px 6px rgba(0,0,0,0.1);
-    max-width: 400px;
+.blog-container {
+    max-width: 1200px;
     margin: 0 auto;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    justify-content: center;
+}
+
+/* Каждый пост как карточка */
+.blog-post {
+    width: 30%; /* 3 в ряд */
+    min-width: 280px;
+    background-color: #fff;
+    border: 2px solid #000; /* Чёткая обводка */
+    border-radius: 10px;
+    padding: 15px;
+    box-sizing: border-box;
+    box-shadow: 2px 2px 6px rgba(0, 0, 0, 0.1);
+    transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.blog-post:hover {
+    transform: scale(1.02);
+    box-shadow: 4px 6px 14px rgba(0, 0, 0, 0.2);
+}
+
+.blog-post h2 {
+    margin: 0 0 10px 0;
+    font-size: 1.2rem;
+}
+
+.blog-post p {
+    color: #555;
+    font-size: 0.9rem;
+}
+
+a {
+    text-decoration: none;
+    color: #007bff;
+}
+
+a:hover {
+    text-decoration: underline;
+}
+
+/* Для мобильных: по 1-2 в ряд */
+@media (max-width: 900px) {
+    .blog-post {
+        width: 45%;
+    }
+}
+
+@media (max-width: 600px) {
+    .blog-post {
+        width: 100%;
+    }
 }

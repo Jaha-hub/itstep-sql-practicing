@@ -1,0 +1,151 @@
+:root {
+    /* Переменные для светлой темы (по умолчанию) */
+    --background-color: #f4f4f4;
+    --text-color: #333;
+    --card-background: #fff;
+    --card-border: #ddd;
+    --link-color: #007bff;
+    --button-bg: #007bff;
+    --button-text: #fff;
+}
+
+body.dark-mode {
+    --background-color: #121212;
+    --text-color: #e0e0e0;
+    --card-background: #1e1e1e;
+    --card-border: #444;
+    --link-color: #64b5f6;
+    --button-bg: #64b5f6;
+    --button-text: #121212;
+}
+
+body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    background-color: var(--background-color);
+    color: var(--text-color);
+    line-height: 1.6;
+    transition: background-color 0.3s, color 0.3s; /* Плавный переход */
+}
+
+.container {
+    max-width: 800px;
+    margin: auto;
+    overflow: auto;
+    padding: 0 2rem;
+}
+
+a{
+    color: var(--link-color);
+    text-decoration: none;
+}
+
+a:hover {
+    text-decoration: underline;
+}
+
+.post-entry {
+    background: var(--card-background);
+    padding: 1rem 2rem;
+    border: 1px solid var(--card-border);
+    margin-bottom: 1rem;
+    border-radius: 0.5rem;
+    transition: background-color 0.3s, border-color 0.3s;
+}
+
+.post-controls {
+    margin-top: 0.5rem;
+    font-size: 0.9rem;
+}
+
+.post-controls a {
+    opacity: 0.7;
+}
+
+/* Стили для шапки и кнопки */
+.site-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem 0;
+    margin-bottom: 1rem;
+}
+
+.site-title {
+    font-size: 1.5rem;
+    font-weight: bold;
+}
+
+.site-title:hover {
+    text-decoration: none;
+}
+
+.header-controls {
+    display: flex;
+    align-items: center;
+    gap: 1rem; /* Расстояние между элементами */
+}
+
+.user-greeting {
+    font-size: 0.9rem;
+}
+
+.auth-link {
+    font-size: 0.9rem;
+    font-weight: bold;
+}
+
+.link-button {
+    background: none;
+    border: none;
+    padding: 0;
+    cursor: pointer;
+    color: var(--link-color);
+    font-family: inherit; /* Наследуем шрифт от родителя */
+    font-size: inherit;   /* Наследуем размер шрифта */
+    vertical-align: baseline; /* Выравниваем по базовой линии текста */
+    text-decoration: none;
+}
+
+.theme-toggle-button {
+    background-color: var(--button-bg);
+    color: var(--button-text);
+    border: none;
+    padding: 0.5rem 1rem;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+/* Стили для страницы входа */
+.login-container {
+    background: var(--card-background);
+    padding: 2rem;
+    border-radius: 8px;
+    border: 1px solid var(--card-border);
+    max-width: 400px;
+    margin: 2rem auto;
+}
+
+.login-form p {
+    margin-bottom: 1rem;
+}
+
+.login-form input {
+    width: 100%;
+    padding: 0.5rem;
+    border: 1px solid var(--card-border);
+    border-radius: 4px;
+    background-color: var(--background-color);
+    color: var(--text-color);
+}
+
+.button-primary {
+    width: 100%;
+    padding: 0.75rem;
+    background-color: var(--button-bg);
+    color: var(--button-text);
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 1rem;
+}

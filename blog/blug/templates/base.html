@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Мой Блог{% endblock %}</title>
+    <link rel="stylesheet" href="{% static 'blug/css/blog.css' %}">
+    {% block head %}{% endblock %}
+</head>
+<body>
+    <div class="container">
+        <header class="site-header">
+            <a href="{% url 'blog_list' %}" class="site-title">Мой Блог</a>
+            <div class="header-controls">
+                {% if user.is_authenticated %}
+                    <span class="user-greeting">Привет, {{ user.username }}!</span>
+                    <form action="{% url 'logout' %}" method="post" style="display: inline; margin: 0;">
+                        {% csrf_token %}
+                        <button type="submit" class="auth-link link-button">Выйти</button>
+                    </form>
+                {% else %}
+                    <a href="{% url 'login' %}" class="auth-link">Войти</a>
+                    <a href="{% url 'register' %}" class="auth-link">Регистрация</a>
+                {% endif %}
+                <button id="theme-toggle" class="theme-toggle-button">Сменить тему</button>
+            </div>
+        </header>
+        {% block content %}{% endblock %}
+    </div>
+
+    <script>
+        const themeToggleButton = document.getElementById('theme-toggle');
+        const body = document.body;
+
+        const savedTheme = localStorage.getItem('theme');
+        if (savedTheme === 'dark') {
+            body.classList.add('dark-mode');
+        }
+
+        themeToggleButton.addEventListener('click', () => {
+            body.classList.toggle('dark-mode');
+
+            const theme = body.classList.contains('dark-mode') ? 'dark' : 'light';
+            localStorage.setItem('theme', theme);
+        });
+    </script>
+</body>
+</html>

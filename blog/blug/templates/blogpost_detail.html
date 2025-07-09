@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+
+{% block title %}{{ object.title }} - {{ block.super }}{% endblock %}
+
+{% block content %}
+    <article class="post-entry">
+        <h1>{{ object.title }}</h1>
+        <p class="author-info">Автор: {{ object.author }} | Опубликовано: {{ object.created_at|date:"d.m.Y H:i" }}</p>
+        <hr>
+        <div class="post-content">
+            {{ object.content|linebreaks }}
+        </div>
+    </article>
+    <a href="{% url 'blog_list' %}">← Назад к списку постов</a>
+{% endblock %}
